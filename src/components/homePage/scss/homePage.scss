@@ -58,6 +58,19 @@
       .movement_date {
         color: lightgrey;
       }
+      h1 {
+        background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 3px, transparent 3px) 0% 0%/7px 7px no-repeat,
+        radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px) 100% 0%/7px 7px no-repeat,
+        radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px) 0% 100%/7px 7px no-repeat,
+        radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px) 100% 100%/7px 7px no-repeat,
+        linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 8px) calc(100% - 14px) no-repeat,
+        linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 14px) calc(100% - 8px) no-repeat,
+        linear-gradient(#ffffff 0%, #0c965d 100%);
+        border-radius: 7px;
+        padding: 0.5rem;
+        box-sizing: border-box;
+        text-align: center;
+        }
     }
   }
   .inputs_group {
