@@ -109,7 +109,7 @@ export default function MainPage() {
           >
             <MenuIcon/>
           </IconButton>
-          <Header/>
+          <Header navigate={navigateToPage}/>
         </Toolbar>
       </AppBar>
       <Drawer
