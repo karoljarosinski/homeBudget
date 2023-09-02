@@ -1,3 +1,8 @@
+@import "../../header/scss/header";
+@import "../../footer/scss/footer";
+@import "../../homePage/scss/homePage";
+@import "../../bedroom/scss/bedroom";
+
 .MuiBox-root {
   header {
     background-color: darkseagreen;
@@ -18,9 +23,14 @@
   }
   main {
     height: 100vh;
+    @media (min-width: 361px) {
+      height: 100%;
+    }
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    background: rgb(2,0,36);
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,121,37,1) 0%, rgba(11,111,19,1) 0%, rgba(255,255,255,1) 100%);
   }
 }

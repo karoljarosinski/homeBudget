@@ -2,10 +2,7 @@ import React from 'react';
 
 const Bedroom = () => {
   return (
-    //
-    <>
-      <div>To bedzie sypialnia</div>
-    </>
+      <div className='bedroom'>To bedzie sypialnia</div>
   );
 };
 

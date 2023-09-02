@@ -1,0 +1,85 @@
+.homePage {
+  width: 100%;
+  height: 100%;
+  @media (min-width: 361px) {
+    padding: 0 3rem;
+  }
+
+  .upperMainPage {
+    display: flex;
+    width: 100%;
+    @media(min-width: 361px) {
+      justify-content: space-between;
+    }
+  }
+
+  .home-picture {
+    width:50%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .lowerMainPage {
+    display: flex;
+    width: 100%;
+    @media (min-width: 361px) {
+      align-items: center;
+      justify-content: space-between;
+    }
+    .board_picture {
+      display: none;
+      @media (min-width: 361px) {
+        display: block;
+        width: 40%;
+        height: 80%;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    li {
+      width: 100%;
+      background-color: white;
+      margin: 1rem 0;
+      border-radius: 0.5rem;
+      display: flex;
+      justify-content: space-around;
+      border: 1px solid red;
+    }
+    .list_of_movements {
+      width: 100%;
+      @media (min-width: 361px) {
+        width: 50%;
+        padding: 0 1rem;
+      }
+      .movement_date {
+        color: lightgrey;
+      }
+    }
+  }
+  .inputs_group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+    select {
+      padding: 0.5rem;
+      width: 80%;
+      border: 2px solid blue;
+      border-radius: 0.5rem;
+    }
+    .inputs {
+      display: flex;
+      justify-content: space-around;
+      input {
+        width: 33%;
+        border: 2px solid blue;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}
