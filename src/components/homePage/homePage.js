@@ -32,7 +32,7 @@ const HomePage = () => {
             <option value="income">Income</option>
           </select>
           <div className='inputs'>
-            <input type="text" placeholder='Wydatek'/>
+            <input type="text" placeholder='Description'/>
             <input type="number" placeholder='00.00'/>
             <ColorButtons/>
           </div>
