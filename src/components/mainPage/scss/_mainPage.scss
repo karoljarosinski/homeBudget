@@ -1,0 +1,16 @@
+.MuiBox-root {
+  header {
+    background-color: darkseagreen;
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .rooms_links {
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
