@@ -1,1 +1,10 @@
 @import "../../mainPage/scss/mainPage";
+
+.room_container {
+  text-align: center;
+  h6 {
+    padding: 2rem 0;
+    font-family: 'Russo One', sans-serif;
+    font-size: 2rem;
+  }
+}

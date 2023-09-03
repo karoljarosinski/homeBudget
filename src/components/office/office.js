@@ -1,9 +1,11 @@
 import React from 'react';
+import Table from '../table/table'
 
 const Office = () => {
   return (
-    <div>
-      to bedzie biuro
+    <div className='room_container'>
+      <h6>Office</h6>
+      <Table/>
     </div>
   );
 };
