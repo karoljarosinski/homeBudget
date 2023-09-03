@@ -34,7 +34,7 @@ const HomePage = () => {
           <div className='inputs'>
             <input type="text" placeholder='Description'/>
             <input type="number" placeholder='00.00'/>
-            <ColorButtons/>
+            <ColorButtons type='submit' text='ADD'/>
           </div>
         </div>
       </form>

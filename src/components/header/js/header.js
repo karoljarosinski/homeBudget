@@ -16,7 +16,7 @@ const Header = ({ navigate }) => {
         navigate('/');
       }
     } }>
-      <HomeIcon color="success"/>Home budget</h6>
+      <HomeIcon color="success"/>HomeBudget</h6>
   );
 };
 
