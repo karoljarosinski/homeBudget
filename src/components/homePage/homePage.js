@@ -5,12 +5,11 @@ import { useEffect, useState } from "react";
 import CircularIndeterminate from "../loadingSpinner/spinner";
 
 const HomePage = () => {
-  const [opeartions, setOperations] = useState([]);
+  const [operations, setOperations] = useState([]);
+  const [transactionType, setTransactionType] = useState('expense');
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState(0);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('submit')
-  }
   useEffect(() => {
     const collectionRef = db.collection('operations');
     collectionRef.get()
@@ -26,13 +25,26 @@ const HomePage = () => {
       })
   }, [])
 
-  console.log(opeartions);
-
-  // if (!opeartions.length) {
-  //   return (
-  //     <p>loading...</p>
-  //   )
-  // }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newOperation = {
+      date: new Date().toLocaleDateString(),
+      price: amount,
+      title,
+      type: transactionType
+    }
+    const collectionRef = db.collection('operations');
+    collectionRef.add(newOperation)
+      // .then((docRef) => {
+      //   console.log('Dodano obiekt z ID: ', docRef.id);
+      // })
+      .catch((error) => {
+        console.error('Blad dodawania obiektu: ', error)
+      })
+    setOperations(prevState => [...prevState, newOperation])
+    setTitle('');
+    setAmount(0);
+  }
 
   return (
     <div className='homePage'>
@@ -53,13 +65,15 @@ const HomePage = () => {
       </div>
       <form onSubmit={ (event) => handleSubmit(event) }>
         <div className='inputs_group'>
-          <select>
+          <select onChange={ (e) => {
+            setTransactionType(e.target.value)
+          } }>
             <option value="expense">Expense</option>
             <option value="income">Income</option>
           </select>
           <div className='inputs'>
-            <input type="text" placeholder='Description'/>
-            <input type="number" placeholder='00.00'/>
+            <input type="text" placeholder='Title' onChange={ e => setTitle(e.target.value) }/>
+            <input type="number" placeholder='00.00' onChange={ e => setAmount(+e.target.value) }/>
             <ColorButtons type='submit' text='ADD'/>
           </div>
         </div>
@@ -68,24 +82,16 @@ const HomePage = () => {
         <div className='list_of_movements'>
           <h1>LIST OF MOVEMENTS</h1>
           <ul>
-            {/*{ ['Salary', 'Netflix', 'Spotify'].map((item) => (*/}
-            {/*  <li key={ item }>*/}
-            {/*    <div>{ item }</div>*/}
-            {/*    <div*/}
-            {/*      className='movement_date'>{ new Date().getDay() }-{ new Date().getMonth() }-{ new Date().getFullYear() }</div>*/}
-            {/*    <div>2000$</div>*/}
-            {/*  </li>*/}
-            {/*)) }*/}
-            {opeartions.map((operation) => (
-              <li key={operation.id}>
-                <div>{operation.title}</div>
+            { operations.map((operation) => (
+              <li key={ operation.title } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
+                <div>{ operation.title }</div>
                 <div className='movement_date'>
-                  {operation.date}
+                  { operation.date }
                 </div>
-                <div>{operation.price}</div>
+                <div>{ operation.price }</div>
               </li>
-            ))}
-            {!opeartions.length && <div className='spinner'><CircularIndeterminate /></div>}
+            )) }
+            { !operations.length && <div className='spinner'><CircularIndeterminate/></div> }
           </ul>
         </div>
         <div className='board_picture'>
