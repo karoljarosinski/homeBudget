@@ -1,68 +1,83 @@
 .homePage {
   width: 100%;
   height: 100%;
-  @media (min-width: 361px) {
+  @media (min-width: 500px) {
     padding: 0 3rem;
   }
 
   .upperMainPage {
     display: flex;
-    width: 100%;
-    @media(min-width: 361px) {
-      justify-content: space-between;
+    @media(min-width: 500px) {
+      justify-content: space-evenly;
+    }
+
+    .data_container {
+      @media(min-width: 760px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .home-picture {
+      display: flex;
+      justify-content: center;
+      width: 50%;
+
+      img {
+        width: 70%;
+      }
     }
   }
 
-  .home-picture {
-    width:50%;
-    height: 100%;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
   .lowerMainPage {
     display: flex;
-    width: 100%;
-    @media (min-width: 361px) {
+    @media (min-width: 500px) {
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-evenly;
     }
+
     .board_picture {
       display: none;
-      @media (min-width: 361px) {
-        display: block;
+      @media (min-width: 500px) {
+        display: flex;
         width: 40%;
         height: 80%;
       }
+
       img {
-        width: 100%;
-        height: 100%;
+        width: 70%;
       }
     }
+
     li {
       width: 100%;
       background-color: white;
-      margin: 1rem 0;
+      margin: 0.3rem 0;
       border-radius: 0.5rem;
       display: flex;
       justify-content: space-around;
-      border: 1px solid red;
+      border: 2px solid;
     }
+
     .list_of_movements {
       width: 100%;
-      @media (min-width: 361px) {
+      @media (min-width: 500px) {
         width: 50%;
         padding: 0 1rem;
       }
+
       .movement_date {
         color: lightgrey;
       }
+
       ul {
-        display:flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
       }
+
       h1 {
         background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 3px, transparent 3px) 0% 0%/7px 7px no-repeat,
         radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px) 100% 0%/7px 7px no-repeat,
@@ -75,28 +90,36 @@
         padding: 0.5rem;
         box-sizing: border-box;
         text-align: center;
-        }
+      }
     }
   }
+
   .inputs_group {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     margin: 1rem;
+
     select {
       padding: 0.5rem;
       width: 80%;
       border: 2px solid blue;
       border-radius: 0.5rem;
+      @media(min-width: 500px) {
+        width: 50%;
+      }
     }
+
     .inputs {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
+
       input {
         width: 33%;
         border: 2px solid blue;
         border-radius: 0.5rem;
+        padding: 0.5rem;
       }
     }
   }

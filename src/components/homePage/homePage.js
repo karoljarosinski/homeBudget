@@ -25,7 +25,7 @@ const HomePage = () => {
       })
   }, [])
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const newOperation = {
       date: new Date().toLocaleDateString(),
@@ -33,31 +33,27 @@ const HomePage = () => {
       title,
       type: transactionType
     }
-    const collectionRef = db.collection('operations');
-    collectionRef.add(newOperation)
-      // .then((docRef) => {
-      //   console.log('Dodano obiekt z ID: ', docRef.id);
-      // })
-      .catch((error) => {
-        console.error('Blad dodawania obiektu: ', error)
-      })
-    setOperations(prevState => [...prevState, newOperation])
-    setTitle('');
-    setAmount(0);
+    try {
+      const collectionRef = db.collection('operations');
+      const data = await collectionRef.add(newOperation);
+      setOperations(prevState => [...prevState, { ...newOperation, id: data.id }])
+      setTitle('');
+      setAmount(0);
+    } catch (error) {
+      console.error('Blad dodawania obiektu: ', error)
+    }
   }
 
   return (
     <div className='homePage'>
       <div className='upperMainPage'>
-        <div>
+        <div className='data_container'>
           <h1>Welcome, <strong>Karol Jarosinski</strong></h1>
           <p>
             Data: { new Date().getDate() }/{ new Date().getMonth() + 1 }/{ new Date().getFullYear() }
           </p>
-          <div>
-            <p><strong>BALANCE</strong></p>
-            <p>{ 150000 }</p>
-          </div>
+          <p><strong>BALANCE</strong></p>
+          <p>{ 5000 }</p>
         </div>
         <div className='home-picture'>
           <img src={ require('./images/homeImage.png') } alt="homePicture"/>
@@ -72,9 +68,9 @@ const HomePage = () => {
             <option value="income">Income</option>
           </select>
           <div className='inputs'>
-            <input type="text" placeholder='Title' onChange={ e => setTitle(e.target.value) }/>
-            <input type="number" placeholder='00.00' onChange={ e => setAmount(+e.target.value) }/>
-            <ColorButtons type='submit' text='ADD'/>
+            <input value={ title } type="text" placeholder='Title' onChange={ e => setTitle(e.target.value) }/>
+            <input value={ amount } type="number" placeholder='Amount' onChange={ e => setAmount(+e.target.value) }/>
+            { (title !== '' && amount !== 0) && <ColorButtons type='submit' text='ADD'/> }
           </div>
         </div>
       </form>
@@ -83,12 +79,12 @@ const HomePage = () => {
           <h1>LIST OF MOVEMENTS</h1>
           <ul>
             { operations.map((operation) => (
-              <li key={ operation.title } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
-                <div>{ operation.title }</div>
-                <div className='movement_date'>
+              <li key={ operation.id } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
+                <p>{ operation.title }</p>
+                <p className='movement_date'>
                   { operation.date }
-                </div>
-                <div>{ operation.price }</div>
+                </p>
+                <p>{ operation.price }</p>
               </li>
             )) }
             { !operations.length && <div className='spinner'><CircularIndeterminate/></div> }

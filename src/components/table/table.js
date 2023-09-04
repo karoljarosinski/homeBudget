@@ -134,8 +134,8 @@ export default function CollapsibleTable() {
           <TableRow>
             <TableCell />
             <TableCell>Item</TableCell>
-            <TableCell align="right">Shop</TableCell>
-            <TableCell align="right">Color</TableCell>
+            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Fat</TableCell>
             <TableCell align="right">Carbs&nbsp;(g)</TableCell>
             <TableCell align="right">Protein&nbsp;(g)</TableCell>
           </TableRow>
