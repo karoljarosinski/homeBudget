@@ -19,7 +19,7 @@ const MyContextProvider = ({ children }) => {
       .catch(error => {
         console.error('Blad pobierania danych: ', error);
       })
-  }, [])
+  },[]);
 
   return (
     <MyContext.Provider value={ { operations, setOperations } } >

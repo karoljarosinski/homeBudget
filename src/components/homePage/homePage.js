@@ -4,13 +4,12 @@ import { db } from "../../firebase.js";
 import { useState } from "react";
 import CircularIndeterminate from "../loadingSpinner/spinner";
 import { MyContext } from "../providers/provider";
+import { FcEmptyTrash } from "react-icons/fc";
 
 const HomePage = () => {
-  // const [operations, setOperations] = useState([]);
   const [transactionType, setTransactionType] = useState('expense');
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(0);
-
   const contextData = useContext(MyContext);
 
   // useEffect(() => {
@@ -44,6 +43,17 @@ const HomePage = () => {
       setAmount(0);
     } catch (error) {
       console.error('Blad dodawania obiektu: ', error)
+    }
+  }
+
+  const handleRemoveElement = async (id) => {
+    console.log('usunieto element o id', id)
+    try {
+      const collectionRef = db.collection('operations');
+      await collectionRef.doc(id).delete();
+      contextData.setOperations(prevState => prevState.filter(el => el.id !== id));
+    } catch (error) {
+      console.error('Błąd podczas usuwania obiektu: ', error);
     }
   }
 
@@ -82,12 +92,13 @@ const HomePage = () => {
           <h1>LIST OF MOVEMENTS</h1>
           <ul>
             { contextData.operations.map((operation) => (
-              <li key={ operation.id } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
+              <li  key={ operation.id } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
                 <p>{ operation.title }</p>
                 <p className='movement_date'>
                   { operation.date }
                 </p>
                 <p>{ operation.price }</p>
+                <FcEmptyTrash id={operation.id} key={operation.id} onClick={event => handleRemoveElement(event.currentTarget.id)}/>
               </li>
             )) }
             { !contextData.operations.length && <div className='spinner'><CircularIndeterminate/></div> }
