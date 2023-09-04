@@ -4,6 +4,10 @@
 @import "../../bedroom/scss/bedroom";
 
 .MuiBox-root {
+  min-height: 100vh;
+  background: rgb(2,0,36);
+  background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,121,37,1) 0%, rgba(11,111,19,1) 0%, rgba(255,255,255,1) 100%);
+
   header {
     background-color: darkseagreen;
     div {
@@ -22,12 +26,9 @@
     }
   }
   main {
-    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    background: rgb(2,0,36);
-    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,121,37,1) 0%, rgba(11,111,19,1) 0%, rgba(255,255,255,1) 100%);
   }
 }
