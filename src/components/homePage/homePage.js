@@ -1,29 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ColorButtons from "../button/button";
 import { db } from "../../firebase.js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CircularIndeterminate from "../loadingSpinner/spinner";
+import { MyContext } from "../providers/provider";
 
 const HomePage = () => {
-  const [operations, setOperations] = useState([]);
+  // const [operations, setOperations] = useState([]);
   const [transactionType, setTransactionType] = useState('expense');
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(0);
 
-  useEffect(() => {
-    const collectionRef = db.collection('operations');
-    collectionRef.get()
-      .then((querySnapshot) => {
-        const data = [];
-        querySnapshot.forEach((doc) => {
-          data.push({ id: doc.id, ...doc.data() })
-        })
-        setOperations(data);
-      })
-      .catch(error => {
-        console.error('Blad pobierania danych: ', error);
-      })
-  }, [])
+  const contextData = useContext(MyContext);
+
+  // useEffect(() => {
+  //   const collectionRef = db.collection('operations');
+  //   collectionRef.get()
+  //     .then((querySnapshot) => {
+  //       const data = [];
+  //       querySnapshot.forEach((doc) => {
+  //         data.push({ id: doc.id, ...doc.data() })
+  //       })
+  //       setOperations(data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Blad pobierania danych: ', error);
+  //     })
+  // }, [])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -36,7 +39,7 @@ const HomePage = () => {
     try {
       const collectionRef = db.collection('operations');
       const data = await collectionRef.add(newOperation);
-      setOperations(prevState => [...prevState, { ...newOperation, id: data.id }])
+      contextData.setOperations(prevState => [...prevState, { ...newOperation, id: data.id }])
       setTitle('');
       setAmount(0);
     } catch (error) {
@@ -78,7 +81,7 @@ const HomePage = () => {
         <div className='list_of_movements'>
           <h1>LIST OF MOVEMENTS</h1>
           <ul>
-            { operations.map((operation) => (
+            { contextData.operations.map((operation) => (
               <li key={ operation.id } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
                 <p>{ operation.title }</p>
                 <p className='movement_date'>
@@ -87,7 +90,7 @@ const HomePage = () => {
                 <p>{ operation.price }</p>
               </li>
             )) }
-            { !operations.length && <div className='spinner'><CircularIndeterminate/></div> }
+            { !contextData.operations.length && <div className='spinner'><CircularIndeterminate/></div> }
           </ul>
         </div>
         <div className='board_picture'>
