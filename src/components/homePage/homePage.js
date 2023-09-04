@@ -4,28 +4,18 @@ import { db } from "../../firebase.js";
 import { useState } from "react";
 import CircularIndeterminate from "../loadingSpinner/spinner";
 import { MyContext } from "../providers/provider";
-import { FcEmptyTrash } from "react-icons/fc";
+import { FcEmptyTrash, FcRefresh } from "react-icons/fc";
 
 const HomePage = () => {
   const [transactionType, setTransactionType] = useState('expense');
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(0);
-  const contextData = useContext(MyContext);
+  const [editElement, setEditElement] = useState(false);
+  const [newTitle, setNewTitle] = useState('');
+  const [newAmount, setNewAmount] = useState(0);
 
-  // useEffect(() => {
-  //   const collectionRef = db.collection('operations');
-  //   collectionRef.get()
-  //     .then((querySnapshot) => {
-  //       const data = [];
-  //       querySnapshot.forEach((doc) => {
-  //         data.push({ id: doc.id, ...doc.data() })
-  //       })
-  //       setOperations(data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Blad pobierania danych: ', error);
-  //     })
-  // }, [])
+  const [objectToEdit, setObjectToEdit] = useState();
+  const contextData = useContext(MyContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -47,7 +37,6 @@ const HomePage = () => {
   }
 
   const handleRemoveElement = async (id) => {
-    console.log('usunieto element o id', id)
     try {
       const collectionRef = db.collection('operations');
       await collectionRef.doc(id).delete();
@@ -55,6 +44,20 @@ const HomePage = () => {
     } catch (error) {
       console.error('Błąd podczas usuwania obiektu: ', error);
     }
+  }
+
+  const handleEditElement = (id) => {
+    console.log('Edytujesz element o id', id);
+    setEditElement(prevState => !prevState);
+    setObjectToEdit(id);
+    setNewAmount(contextData.operations.find(el => el.id === id).price);
+    setNewTitle(contextData.operations.find(el => el.id === id).title)
+  }
+
+  const handleCancelEdit = () => {
+    setNewTitle('');
+    setNewAmount('');
+    setEditElement(false);
   }
 
   return (
@@ -88,25 +91,38 @@ const HomePage = () => {
         </div>
       </form>
       <div className='lowerMainPage'>
-        <div className='list_of_movements'>
-          <h1>LIST OF MOVEMENTS</h1>
-          <ul>
-            { contextData.operations.map((operation) => (
-              <li  key={ operation.id } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
-                <p>{ operation.title }</p>
-                <p className='movement_date'>
-                  { operation.date }
-                </p>
-                <p>{ operation.price }</p>
-                <FcEmptyTrash id={operation.id} key={operation.id} onClick={event => handleRemoveElement(event.currentTarget.id)}/>
-              </li>
-            )) }
-            { !contextData.operations.length && <div className='spinner'><CircularIndeterminate/></div> }
-          </ul>
-        </div>
-        <div className='board_picture'>
-          <img src={ require('./images/board_picture.png') } alt="board picture"/>
-        </div>
+        { !editElement &&
+          <div className='list_of_movements'>
+            <h1>LIST OF MOVEMENTS</h1>
+            <ul>
+              { contextData.operations.map((operation) => (
+                <li key={ operation.id } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
+                  <p>{ operation.title }</p>
+                  <p className='movement_date'>
+                    { operation.date }
+                  </p>
+                  <p>{ operation.price }</p>
+                  <FcEmptyTrash id={ operation.id } onClick={ event => handleRemoveElement(event.currentTarget.id) }/>
+                  <FcRefresh id={ operation.id } onClick={ event => handleEditElement(event.currentTarget.id) }/>
+                </li>
+              )) }
+              { !contextData.operations.length && <div className='spinner'><CircularIndeterminate/></div> }
+            </ul>
+          </div>
+        }
+        { editElement && <div className='edit_form'>
+          <h1>{ contextData.operations.filter(el => el.id === objectToEdit)[0].title }</h1>
+          <form>
+            <input value={ newTitle } type="text"
+                   onChange={ event => setNewTitle(event.target.value) }/>
+            <input value={ newAmount } type="number"
+                   onChange={ event => setNewAmount(+event.target.value)}/>
+          </form>
+          <div className="edit_buttons">
+            <ColorButtons text='SAVE'/>
+            <ColorButtons text='CANCEL' handleClick={ () => handleCancelEdit() }/>
+          </div>
+        </div> }
       </div>
     </div>
   );
