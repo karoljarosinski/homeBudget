@@ -123,6 +123,9 @@ const HomePage = () => {
             <ColorButtons text='CANCEL' handleClick={ () => handleCancelEdit() }/>
           </div>
         </div> }
+        <div className='board_picture'>
+          <img src={ require('./images/board_picture.png') } alt="board picture"/>
+        </div>
       </div>
     </div>
   );
