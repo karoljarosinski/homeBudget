@@ -1,18 +1,18 @@
 .homePage {
   width: 100%;
   height: 100%;
-  @media (min-width: 500px) {
+  @media (min-width: 740px) {
     padding: 0 3rem;
   }
 
   .upperMainPage {
     display: flex;
-    @media(min-width: 500px) {
+    @media(min-width: 740px) {
       justify-content: space-evenly;
     }
 
     .data_container {
-      @media(min-width: 760px) {
+      @media(min-width: 740px) {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -33,14 +33,14 @@
 
   .lowerMainPage {
     display: flex;
-    @media (min-width: 500px) {
+    @media (min-width: 740px) {
       align-items: center;
       justify-content: space-evenly;
     }
 
     .board_picture {
       display: none;
-      @media (min-width: 500px) {
+      @media (min-width: 740px) {
         display: flex;
         width: 40%;
         height: 80%;
@@ -53,12 +53,12 @@
 
     .list_of_movements {
       width: 100%;
-      @media (min-width: 500px) {
+      @media (min-width: 740px) {
         width: 50%;
         padding: 0 1rem;
       }
 
-      .movement_date {
+      .operation_date {
         color: lightgrey;
       }
 
@@ -72,10 +72,25 @@
           background-color: white;
           margin: 0.3rem 0;
           border-radius: 0.5rem;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
+          //display: flex;
+          //justify-content: space-around;
+          //align-items: center;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          //gap: 10px;
+          grid-auto-rows: minmax(1rem, auto);
           border: 2px solid;
+          p {
+            text-align: center;
+          }
+          .edit_icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            svg {
+              margin: 0 1rem;
+            }
+          }
         }
       }
     }

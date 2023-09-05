@@ -47,7 +47,6 @@ const HomePage = () => {
   }
 
   const handleEditElement = (id) => {
-    console.log('Edytujesz element o id', id);
     setEditElement(prevState => !prevState);
     setObjectToEdit(id);
     setNewAmount(contextData.operations.find(el => el.id === id).price);
@@ -56,7 +55,7 @@ const HomePage = () => {
 
   const handleCancelEdit = () => {
     setNewTitle('');
-    setNewAmount('');
+    setNewAmount(0);
     setEditElement(false);
   }
 
@@ -119,13 +118,15 @@ const HomePage = () => {
             <ul>
               { contextData.operations.map((operation) => (
                 <li key={ operation.id } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
-                  <p>{ operation.title }</p>
-                  <p className='movement_date'>
+                  <p className='operation_title'>{ operation.title }</p>
+                  <p className='operation_date'>
                     { operation.date }
                   </p>
-                  <p>{ operation.price }</p>
-                  <FcEmptyTrash id={ operation.id } onClick={ event => handleRemoveElement(event.currentTarget.id) }/>
-                  <FcRefresh id={ operation.id } onClick={ event => handleEditElement(event.currentTarget.id) }/>
+                  <p className='operation_price'>{ operation.price }</p>
+                  <div className='edit_icons'>
+                  <FcEmptyTrash className='trash_icon' id={ operation.id } onClick={ event => handleRemoveElement(event.currentTarget.id) }/>
+                  <FcRefresh className='edit_icon' id={ operation.id } onClick={ event => handleEditElement(event.currentTarget.id) }/>
+                  </div>
                 </li>
               )) }
               { !contextData.operations.length && <div className='spinner'><CircularIndeterminate/></div> }
