@@ -60,6 +60,28 @@ const HomePage = () => {
     setEditElement(false);
   }
 
+  const handleUpdateOperation = async () => {
+    setEditElement(false);
+    const itemRef = db.collection('operations').doc(objectToEdit);
+    try {
+      const object = await itemRef.get();
+      if (object.exists) {
+        const itemData = object.data();
+        itemData.title = newTitle;
+        itemData.price = newAmount;
+        await itemRef.update(itemData)
+        contextData.setOperations(prevState => prevState.map(el => el.id === object.id ? {
+          ...itemData,
+          id: object.id
+        } : el));
+      } else {
+        console.log('Dokument nie istnieje');
+      }
+    } catch (error) {
+      console.error('Błąd podczas pobierania dokumentu', error);
+    }
+  }
+
   return (
     <div className='homePage'>
       <div className='upperMainPage'>
@@ -111,17 +133,18 @@ const HomePage = () => {
           </div>
         }
         { editElement && <div className='edit_form'>
-          <h1>{ contextData.operations.filter(el => el.id === objectToEdit)[0].title }</h1>
+          <h1>{ contextData.operations.find(el => el.id === objectToEdit).title }</h1>
           <form>
             <input value={ newTitle } type="text"
                    onChange={ event => setNewTitle(event.target.value) }/>
             <input value={ newAmount } type="number"
-                   onChange={ event => setNewAmount(+event.target.value)}/>
+                   onChange={ event => setNewAmount(+event.target.value) }/>
+            {/*</form>*/ }
+            <div className="edit_buttons">
+              <ColorButtons text='SAVE' handleClick={ () => handleUpdateOperation() }/>
+              <ColorButtons text='CANCEL' handleClick={ () => handleCancelEdit() }/>
+            </div>
           </form>
-          <div className="edit_buttons">
-            <ColorButtons text='SAVE'/>
-            <ColorButtons text='CANCEL' handleClick={ () => handleCancelEdit() }/>
-          </div>
         </div> }
         <div className='board_picture'>
           <img src={ require('./images/board_picture.png') } alt="boardPicture"/>
