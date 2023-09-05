@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -121,7 +120,6 @@ function Row(props) {
 // ];
 
 export default function CollapsibleTable({ roomItems }) {
-  const rows = roomItems;
 
   return (
     <TableContainer component={ Paper }>
@@ -134,7 +132,7 @@ export default function CollapsibleTable({ roomItems }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          { rows.map((row) => (
+          { roomItems.map((row) => (
             <Row key={ row.id } row={ row }/>
           )) }
         </TableBody>
