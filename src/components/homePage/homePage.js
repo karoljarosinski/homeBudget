@@ -124,7 +124,7 @@ const HomePage = () => {
           </div>
         </div> }
         <div className='board_picture'>
-          <img src={ require('./images/board_picture.png') } alt="board picture"/>
+          <img src={ require('./images/board_picture.png') } alt="boardPicture"/>
         </div>
       </div>
     </div>
