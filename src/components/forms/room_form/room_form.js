@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import ColorButtons from "../button/button";
-import { db } from "../../firebase";
-import { MyContext } from "../providers/provider";
+import ColorButtons from "../../button/button";
+import { db } from "../../../firebase";
+import { MyContext } from "../../providers/provider";
 
-const Form = ({ addItem, roomType }) => {
+const RoomForm = ({ addItem, roomType }) => {
   const [item, setItem] = useState('');
   const [shop, setShop] = useState('');
   const contextData = useContext(MyContext);
@@ -37,7 +37,7 @@ const Form = ({ addItem, roomType }) => {
   }
 
   return (
-    <form onSubmit={ event => handleSubmit(event) }>
+    <form onSubmit={ event => handleSubmit(event) } className='add_room_item'>
       <input value={item} type="text" placeholder='Item' onChange={event => setItem(event.target.value)}/>
       <input value={shop} type="text" placeholder='Shop' onChange={event => setShop(event.target.value)}/>
       <div className="form_buttons">
@@ -48,4 +48,4 @@ const Form = ({ addItem, roomType }) => {
   );
 };
 
-export default Form;
+export default RoomForm;

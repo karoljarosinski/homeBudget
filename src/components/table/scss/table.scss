@@ -10,6 +10,9 @@ table {
   }
   .items_section {
     display: flex;
-    justify-content: space-between;
+    gap: 7rem;
+    @media(min-width: 361px) {
+      justify-content: space-between;
+    }
   }
 }

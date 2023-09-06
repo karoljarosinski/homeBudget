@@ -3,7 +3,8 @@
 @import "../../footer/scss/footer";
 @import "../../homePage/scss/homePage";
 @import "../../table/scss/table";
-@import "../../forms/scss/form";
+@import "../../forms/room_form/scss/room_form";
+@import "../../forms/item_form/scss/item_form";
 
 .room_container {
   display: flex;
@@ -22,7 +23,7 @@
     margin-bottom: 1rem;
   }
 
-  form {
+  .add_room_item {
     display: flex;
     flex-direction: column;
     align-items: center;

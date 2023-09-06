@@ -13,10 +13,22 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ColorButtons from "../button/button";
+import { useState } from "react";
+import ItemForm from "../forms/item_form/item_form";
 
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const [addItemDetails, setAddItemDetails] = useState(false);
+
+  const handleAddItem = () => {
+    setAddItemDetails(prevState => !prevState)
+  }
+
+  const expandTableRow = () => {
+    setOpen(!open);
+    setAddItemDetails(false);
+  }
 
   return (
     <React.Fragment>
@@ -25,7 +37,7 @@ function Row(props) {
           <IconButton
             aria-label="expand row"
             size="small"
-            onClick={ () => setOpen(!open) }
+            onClick={ expandTableRow }
           >
             { open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/> }
           </IconButton>
@@ -43,9 +55,9 @@ function Row(props) {
                 <Typography variant="h6" gutterBottom component="div">
                   Items
                 </Typography>
-                <ColorButtons text='Add item'/>
+                <ColorButtons text='Add item' handleClick={ handleAddItem }/>
               </div>
-              <Table size="small" aria-label="purchases">
+              {!addItemDetails && <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
@@ -70,7 +82,8 @@ function Row(props) {
                     </TableRow>
                   )) }
                 </TableBody>
-              </Table>
+              </Table> }
+              {addItemDetails && <ItemForm addItemDetails={setAddItemDetails} row={row}/>}
             </Box>
           </Collapse>
         </TableCell>
@@ -87,7 +100,7 @@ export default function CollapsibleTable({ roomItems }) {
         <TableHead>
           <TableRow>
             <TableCell/>
-            <TableCell align="center">Item</TableCell>
+            <TableCell align="center">Room Items</TableCell>
             <TableCell align="center">Shop</TableCell>
           </TableRow>
         </TableHead>

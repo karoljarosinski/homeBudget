@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Table from '../table/table'
-import Form from "../forms/form";
+import RoomForm from "../forms/room_form/room_form";
 import ColorButtons from "../button/button";
 import { MyContext } from "../providers/provider";
 
@@ -14,7 +14,7 @@ const Bedroom = () => {
       { !addItem &&
         <ColorButtons text='ADD' handleClick={ () => setAddItem(prevState => !prevState) }/>
       }
-      { addItem && <Form addItem={setAddItem} roomType='Bedroom'/> }
+      { addItem && <RoomForm addItem={setAddItem} roomType='Bedroom'/> }
       <Table roomItems={ contextData.roomItems.filter(el => el.roomType === 'Bedroom') }/>
     </div>
   );
