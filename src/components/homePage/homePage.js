@@ -9,7 +9,7 @@ import { FcEmptyTrash, FcRefresh } from "react-icons/fc";
 const HomePage = () => {
   const [transactionType, setTransactionType] = useState('expense');
   const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState('');
   const [editElement, setEditElement] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newAmount, setNewAmount] = useState(0);
@@ -106,7 +106,7 @@ const HomePage = () => {
           </select>
           <div className='inputs'>
             <input value={ title } type="text" placeholder='Title' onChange={ e => setTitle(e.target.value) }/>
-            <input value={ amount } type="number" placeholder='Amount' onChange={ e => setAmount(+e.target.value) }/>
+            <input value={ amount } type="number" placeholder='Cost' onChange={ e => setAmount(+e.target.value) }/>
             { (title !== '' && amount !== 0) && <ColorButtons type='submit' text='ADD'/> }
           </div>
         </div>

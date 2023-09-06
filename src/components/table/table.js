@@ -64,7 +64,7 @@ function Row(props) {
                     <TableCell>Model</TableCell>
                     <TableCell>Price</TableCell>
                     <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell align="right">Total price (PLN)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
