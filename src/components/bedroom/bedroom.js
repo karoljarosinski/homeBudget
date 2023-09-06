@@ -11,9 +11,11 @@ const Bedroom = () => {
   return (
     <div className='room_container'>
       <h6><strong>Bedroom</strong></h6>
-      <ColorButtons text='ADD' handleClick={ () => setAddItem(prevState => !prevState) }/>
-      { addItem && <Form/> }
-      <Table roomItems={contextData.roomItems.filter(el => el.roomType === 'Bedroom')}/>
+      { !addItem &&
+        <ColorButtons text='ADD' handleClick={ () => setAddItem(prevState => !prevState) }/>
+      }
+      { addItem && <Form addItem={setAddItem} roomType='Bedroom'/> }
+      <Table roomItems={ contextData.roomItems.filter(el => el.roomType === 'Bedroom') }/>
     </div>
   );
 };

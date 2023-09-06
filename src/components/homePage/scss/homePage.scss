@@ -1,6 +1,5 @@
 .homePage {
   width: 100%;
-  height: 100%;
   @media (min-width: 740px) {
     padding: 0 3rem;
   }
@@ -62,6 +61,11 @@
         color: lightgrey;
       }
 
+      .spinner {
+        display: flex;
+        justify-content: center;
+      }
+
       ul {
         display: flex;
         flex-direction: column;
@@ -72,12 +76,8 @@
           background-color: white;
           margin: 0.3rem 0;
           border-radius: 0.5rem;
-          //display: flex;
-          //justify-content: space-around;
-          //align-items: center;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          //gap: 10px;
           grid-auto-rows: minmax(1rem, auto);
           border: 2px solid;
           p {

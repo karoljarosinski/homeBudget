@@ -12,27 +12,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
-// function createData(item, shop) {
-//   return {
-//     item,
-//     shop,
-//     items: [
-//       {
-//         date: '2020-01-05',
-//         model: '11091700',
-//         amount: 3,
-//         price: 5.99,
-//       },
-//       {
-//         date: '2020-01-02',
-//         model: 'Anonymous',
-//         amount: 1,
-//         price: 7,
-//       },
-//     ],
-//   };
-// }
+import ColorButtons from "../button/button";
 
 function Row(props) {
   const { row } = props;
@@ -59,9 +39,12 @@ function Row(props) {
         <TableCell style={ { paddingBottom: 0, paddingTop: 0 } } colSpan={ 6 }>
           <Collapse in={ open } timeout="auto" unmountOnExit>
             <Box sx={ { margin: 1 } }>
-              <Typography variant="h6" gutterBottom component="div">
-                Items
-              </Typography>
+              <div className="items_section">
+                <Typography variant="h6" gutterBottom component="div">
+                  Items
+                </Typography>
+                <ColorButtons text='Add item'/>
+              </div>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -95,29 +78,6 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
-// Row.propTypes = {
-//   row: PropTypes.shape({
-//     shop: PropTypes.string.isRequired,
-//     items: PropTypes.arrayOf(
-//       PropTypes.shape({
-//         amount: PropTypes.number.isRequired,
-//         model: PropTypes.string.isRequired,
-//         date: PropTypes.string.isRequired,
-//         price: PropTypes.number.isRequired
-//       }),
-//     ).isRequired,
-//     item: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
-
-// const rows = [
-//   createData('Frozen yoghurt', '159'),
-//   createData('Ice cream sandwich', '237'),
-//   createData('Eclair', '262'),
-//   createData('Cupcake', '305'),
-//   createData('Gingerbread', '356')
-// ];
 
 export default function CollapsibleTable({ roomItems }) {
 

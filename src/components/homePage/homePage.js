@@ -124,13 +124,15 @@ const HomePage = () => {
                   </p>
                   <p className='operation_price'>{ operation.price }</p>
                   <div className='edit_icons'>
-                  <FcEmptyTrash className='trash_icon' id={ operation.id } onClick={ event => handleRemoveElement(event.currentTarget.id) }/>
-                  <FcRefresh className='edit_icon' id={ operation.id } onClick={ event => handleEditElement(event.currentTarget.id) }/>
+                    <FcEmptyTrash className='trash_icon' id={ operation.id }
+                                  onClick={ event => handleRemoveElement(event.currentTarget.id) }/>
+                    <FcRefresh className='edit_icon' id={ operation.id }
+                               onClick={ event => handleEditElement(event.currentTarget.id) }/>
                   </div>
                 </li>
               )) }
-              { !contextData.operations.length && <div className='spinner'><CircularIndeterminate/></div> }
             </ul>
+            { !contextData.operations.length && <div className='spinner'><CircularIndeterminate/></div> }
           </div>
         }
         { editElement && <div className='edit_form'>
@@ -142,8 +144,8 @@ const HomePage = () => {
                    onChange={ event => setNewAmount(+event.target.value) }/>
             {/*</form>*/ }
             <div className="edit_buttons">
-              <ColorButtons text='SAVE' handleClick={ () => handleUpdateOperation() }/>
-              <ColorButtons text='CANCEL' handleClick={ () => handleCancelEdit() }/>
+              <ColorButtons text='SAVE' handleClick={ handleUpdateOperation }/>
+              <ColorButtons text='CANCEL' handleClick={ handleCancelEdit }/>
             </div>
           </form>
         </div> }

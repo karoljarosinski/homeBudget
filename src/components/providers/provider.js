@@ -32,7 +32,7 @@ const MyContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <MyContext.Provider value={ { operations, setOperations, roomItems } }>
+    <MyContext.Provider value={ { operations, setOperations, roomItems, setRoomItems } }>
       { children }
     </MyContext.Provider>
   );
