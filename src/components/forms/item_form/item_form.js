@@ -42,7 +42,9 @@ const ItemForm = ({ addItemDetails, row }) => {
       <input value={ model } type="text" placeholder='model' onChange={ event => setModel(event.target.value) }/>
       <input value={ price } type="number" placeholder='price' onChange={ event => setPrice(+event.target.value) }/>
       <input value={ amount } type="number" placeholder='amount' onChange={ event => setAmount(+event.target.value) }/>
+      {((model !== '') && (price !== '') && (amount !== '' && amount !== 0)) &&
       <ColorButtons text='Save' type='submit'/>
+      }
     </form>
   );
 };
