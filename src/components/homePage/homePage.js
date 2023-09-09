@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ColorButtons from "../button/button";
+import SuccessButton from "../button/button";
 import { db } from "../../firebase.js";
 import { useState } from "react";
 import CircularIndeterminate from "../loadingSpinner/spinner";
@@ -107,7 +107,7 @@ const HomePage = () => {
           <div className='inputs'>
             <input value={ title } type="text" placeholder='Title' onChange={ e => setTitle(e.target.value) }/>
             <input value={ amount } type="number" placeholder='Cost' onChange={ e => setAmount(+e.target.value) }/>
-            { (title !== '' && amount !== 0) && <ColorButtons type='submit' text='ADD'/> }
+            { (title !== '' && amount !== '') && <SuccessButton type='submit' text='ADD'/> }
           </div>
         </div>
       </form>
@@ -144,8 +144,8 @@ const HomePage = () => {
                    onChange={ event => setNewAmount(+event.target.value) }/>
             {/*</form>*/ }
             <div className="edit_buttons">
-              <ColorButtons text='SAVE' handleClick={ handleUpdateOperation }/>
-              <ColorButtons text='CANCEL' handleClick={ handleCancelEdit }/>
+              <SuccessButton text='SAVE' handleClick={ handleUpdateOperation }/>
+              <SuccessButton text='CANCEL' handleClick={ handleCancelEdit }/>
             </div>
           </form>
         </div> }

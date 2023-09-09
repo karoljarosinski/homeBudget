@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import ColorButtons from "../../button/button";
+import SuccessButton from "../../button/button";
 import { db } from "../../../firebase";
 import { MyContext } from "../../providers/provider";
 
@@ -41,8 +41,8 @@ const RoomForm = ({ addItem, roomType }) => {
       <input value={item} type="text" placeholder='Item' onChange={event => setItem(event.target.value)}/>
       <input value={shop} type="text" placeholder='Shop' onChange={event => setShop(event.target.value)}/>
       <div className="form_buttons">
-        <ColorButtons type='submit' text='SAVE'/>
-        <ColorButtons text='CANCEL' handleClick={ handleCancel }/>
+        <SuccessButton type='submit' text='SAVE'/>
+        <SuccessButton text='CANCEL' handleClick={ handleCancel }/>
       </div>
     </form>
   );

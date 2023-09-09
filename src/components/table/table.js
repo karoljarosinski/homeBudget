@@ -12,15 +12,19 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ItemForm from "../forms/item_form/item_form";
 import Icons from "../icons/add_icon";
 import SvgMaterialIcons from "../icons/delete_icon";
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
+import { db } from "../../firebase";
+import { MyContext } from "../providers/provider";
 
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const [addItemDetails, setAddItemDetails] = useState(false);
+  const contextData = useContext(MyContext);
 
   const handleAddItem = () => {
     setAddItemDetails(prevState => !prevState)
@@ -29,6 +33,16 @@ function Row(props) {
   const expandTableRow = () => {
     setOpen(!open);
     setAddItemDetails(false);
+  }
+
+  const handleRemoveItem = async () => {
+    const itemRef = db.collection('roomItems');
+    try {
+      await itemRef.doc(row.id).delete();
+      contextData.setRoomItems(prevState => prevState.filter(el => el.id !== row.id));
+    } catch (error) {
+      console.error('Błąd podczas usuwania obiektu: ', error);
+    }
   }
 
   return (
@@ -47,6 +61,11 @@ function Row(props) {
           { row.item }
         </TableCell>
         <TableCell align="center">{ row.shop }</TableCell>
+        <TableCell>
+          { row.items.length === 0 &&
+            <DeleteSweepIcon style={ { color: 'red' } } onClick={ handleRemoveItem }>Cancel</DeleteSweepIcon> }
+        </TableCell>
+
       </TableRow>
       <TableRow>
         <TableCell style={ { paddingBottom: 0, paddingTop: 0 } } colSpan={ 6 }>
@@ -56,9 +75,9 @@ function Row(props) {
                 <Typography variant="h6" gutterBottom component="div">
                   Items
                 </Typography>
-                <Icons addItem={handleAddItem}/>
+                <Icons addItem={ handleAddItem }/>
               </div>
-              {!addItemDetails && <Table size="small" aria-label="purchases">
+              { !addItemDetails && <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
@@ -66,7 +85,7 @@ function Row(props) {
                     <TableCell>Price</TableCell>
                     <TableCell align="right">Amount</TableCell>
                     <TableCell align="right">Total price (PLN)</TableCell>
-                    <TableCell />
+                    <TableCell/>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -82,13 +101,13 @@ function Row(props) {
                         { Math.round(itemsRow.amount * itemsRow.price * 100) / 100 }
                       </TableCell>
                       <TableCell>
-                        <SvgMaterialIcons itemsRow={itemsRow} row={row}/>
+                        <SvgMaterialIcons itemsRow={ itemsRow } row={ row }/>
                       </TableCell>
                     </TableRow>
                   )) }
                 </TableBody>
               </Table> }
-              {addItemDetails && <ItemForm addItemDetails={setAddItemDetails} row={row}/>}
+              { addItemDetails && <ItemForm addItemDetails={ setAddItemDetails } row={ row }/> }
             </Box>
           </Collapse>
         </TableCell>
