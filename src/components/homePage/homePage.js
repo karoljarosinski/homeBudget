@@ -142,7 +142,6 @@ const HomePage = () => {
                    onChange={ event => setNewTitle(event.target.value) }/>
             <input value={ newAmount } type="number"
                    onChange={ event => setNewAmount(+event.target.value) }/>
-            {/*</form>*/ }
             <div className="edit_buttons">
               <SuccessButton text='SAVE' handleClick={ handleUpdateOperation }/>
               <SuccessButton text='CANCEL' handleClick={ handleCancelEdit }/>

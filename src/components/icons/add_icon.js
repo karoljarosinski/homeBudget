@@ -19,11 +19,7 @@ export default function Icons({addItem}) {
         },
       }}
     >
-      {/*<Icon>add_circle</Icon>*/}
-      {/*<Icon color="primary">add_circle</Icon>*/}
       <Icon sx={{ color: green[500] }} onClick={handleClickIcon}>add_circle</Icon>
-      {/*<Icon fontSize="small">add_circle</Icon>*/}
-      {/*<Icon sx={{ fontSize: 30 }}>add_circle</Icon>*/}
     </Box>
   );
 }
