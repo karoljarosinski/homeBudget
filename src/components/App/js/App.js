@@ -6,9 +6,6 @@ function App() {
   return (
     <MyContextProvider>
       <div className="App">
-        {/*<Router>*/ }
-        {/*  <MainPage/>*/ }
-        {/*</Router>*/ }
         <Router>
           <MainPage/>
         </Router>

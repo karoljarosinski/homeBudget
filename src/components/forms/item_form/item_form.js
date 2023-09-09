@@ -29,7 +29,7 @@ const ItemForm = ({ addItemDetails, row }) => {
           contextData.setRoomItems(prevState => prevState.map(el => el.id === object.id ? {
             ...itemData,
             id: object.id
-          } : el))
+          } : el));
         }
       } catch (error) {
         console.error('Błąd podczas pobierania dokumentu', error);

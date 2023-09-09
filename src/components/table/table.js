@@ -12,9 +12,10 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import ColorButtons from "../button/button";
 import { useState } from "react";
 import ItemForm from "../forms/item_form/item_form";
+import Icons from "../icons/add_icon";
+import SvgMaterialIcons from "../icons/delete_icon";
 
 function Row(props) {
   const { row } = props;
@@ -55,7 +56,7 @@ function Row(props) {
                 <Typography variant="h6" gutterBottom component="div">
                   Items
                 </Typography>
-                <ColorButtons text='Add item' handleClick={ handleAddItem }/>
+                <Icons addItem={handleAddItem}/>
               </div>
               {!addItemDetails && <Table size="small" aria-label="purchases">
                 <TableHead>
@@ -65,6 +66,7 @@ function Row(props) {
                     <TableCell>Price</TableCell>
                     <TableCell align="right">Amount</TableCell>
                     <TableCell align="right">Total price (PLN)</TableCell>
+                    <TableCell />
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -78,6 +80,9 @@ function Row(props) {
                       <TableCell align="right">{ itemsRow.amount }</TableCell>
                       <TableCell align="right">
                         { Math.round(itemsRow.amount * itemsRow.price * 100) / 100 }
+                      </TableCell>
+                      <TableCell>
+                        <SvgMaterialIcons itemsRow={itemsRow} row={row}/>
                       </TableCell>
                     </TableRow>
                   )) }
