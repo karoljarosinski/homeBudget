@@ -29,7 +29,8 @@ export default function SvgMaterialIcons({ itemsRow, row }) {
   }
 
   return (
-    <Grid container sx={ { color: 'text.primary' } }>
+    // <Grid container sx={ { color: 'text.primary' } }>
+    <Grid container sx={ { color: 'red' } }>
       <Grid item xs={ 8 }>
         <DeleteForeverIcon onClick={ handleRemoveItem }/>
       </Grid>

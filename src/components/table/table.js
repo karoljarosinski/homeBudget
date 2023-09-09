@@ -19,6 +19,7 @@ import SvgMaterialIcons from "../icons/delete_icon";
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import { db } from "../../firebase";
 import { MyContext } from "../providers/provider";
+import CloseIcon from '@mui/icons-material/Close';
 
 function Row(props) {
   const { row } = props;
@@ -75,7 +76,8 @@ function Row(props) {
                 <Typography variant="h6" gutterBottom component="div">
                   Items
                 </Typography>
-                <Icons addItem={ handleAddItem }/>
+                { !addItemDetails && <Icons addItem={ handleAddItem }/> }
+                { addItemDetails && <CloseIcon onClick={ handleAddItem } style={ { color: 'red' } }/> }
               </div>
               { !addItemDetails && <Table size="small" aria-label="purchases">
                 <TableHead>

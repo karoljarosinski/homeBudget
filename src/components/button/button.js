@@ -17,8 +17,13 @@ export default function SuccessButton({ text, type, handleClick }) {
           {text}
         </Button>
       }
-      { type === undefined &&
+      { (type === undefined && text !== 'CANCEL') &&
         <Button variant="contained" color="success" onClick={handleClickButton}>
+          { text }
+        </Button>
+      }
+      { (type === undefined && text === 'CANCEL') &&
+        <Button variant="contained" color="secondary" onClick={handleClickButton} style={{backgroundColor: 'grey'}}>
           { text }
         </Button>
       }

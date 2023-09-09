@@ -41,7 +41,8 @@ const RoomForm = ({ addItem, roomType }) => {
       <input value={item} type="text" placeholder='Item' onChange={event => setItem(event.target.value)}/>
       <input value={shop} type="text" placeholder='Shop' onChange={event => setShop(event.target.value)}/>
       <div className="form_buttons">
-        <SuccessButton type='submit' text='SAVE'/>
+        {/*<SuccessButton type='submit' text='SAVE'/>*/}
+        {(item !== '' && shop !== '') && <SuccessButton type='submit' text='SAVE'/>}
         <SuccessButton text='CANCEL' handleClick={ handleCancel }/>
       </div>
     </form>
