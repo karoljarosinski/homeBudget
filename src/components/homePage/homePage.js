@@ -99,6 +99,8 @@ const HomePage = () => {
           ...itemData,
           id: object.id
         } : el));
+        const difference = contextData.operations.find(el => el.id === object.id).price - itemData.price;
+        await updateBalance(-difference, itemData.type);
       } else {
         console.log('Dokument nie istnieje');
       }
