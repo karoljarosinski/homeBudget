@@ -5,6 +5,7 @@ import { useState } from "react";
 import CircularIndeterminate from "../loadingSpinner/spinner";
 import { MyContext } from "../providers/provider";
 import { FcEmptyTrash, FcRefresh } from "react-icons/fc";
+import PieArcLabel from "../charts/pie_chart/pie_chart";
 
 const HomePage = () => {
   const [transactionType, setTransactionType] = useState('expense');
@@ -19,7 +20,7 @@ const HomePage = () => {
 
   const updateBalance = async (amount, transactionType) => {
     let actualBalance = contextData.balance[0].balance;
-    actualBalance = transactionType === 'expense' ? actualBalance-= amount : actualBalance += amount;
+    actualBalance = transactionType === 'expense' ? actualBalance -= amount : actualBalance += amount;
     try {
       const balanceRef = db.collection('balance').doc(contextData.balance[0].id);
       const balanceObject = await balanceRef.get();
@@ -161,6 +162,7 @@ const HomePage = () => {
               )) }
             </ul>
             { !contextData.operations.length && <div className='spinner'><CircularIndeterminate/></div> }
+            <PieArcLabel />
           </div>
         }
         { editElement && <div className='edit_form'>

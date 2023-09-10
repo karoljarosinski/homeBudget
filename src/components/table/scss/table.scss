@@ -3,10 +3,6 @@ table {
     th:first-child {
       width: 10%;
     }
-    th:nth-child(2),
-    th:last-child {
-      width: 45%;
-    }
   }
   .items_section {
     display: flex;

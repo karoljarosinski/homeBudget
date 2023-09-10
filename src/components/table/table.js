@@ -128,6 +128,7 @@ export default function CollapsibleTable({ roomItems }) {
             <TableCell/>
             <TableCell align="center">Room Items</TableCell>
             <TableCell align="center">Shop</TableCell>
+            <TableCell/>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -130,6 +130,11 @@
         justify-content: space-around;
       }
     }
+    .summary {
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   .inputs_group {
