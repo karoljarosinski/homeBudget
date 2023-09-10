@@ -6,6 +6,7 @@ export const MyContext = createContext(null);
 const MyContextProvider = ({ children }) => {
   const [operations, setOperations] = useState([]);
   const [roomItems, setRoomItems] = useState([]);
+  const [balance, setBalance] = useState();
 
   const getDataFromDb = (collectionName, setCollection) => {
     const collectionRef = db.collection(collectionName);
@@ -29,10 +30,13 @@ const MyContextProvider = ({ children }) => {
     getDataFromDb('roomItems', (data) => {
       setRoomItems(data)
     });
+    getDataFromDb('balance', (data) => {
+      setBalance(data);
+    });
   }, []);
 
   return (
-    <MyContext.Provider value={ { operations, setOperations, roomItems, setRoomItems } }>
+    <MyContext.Provider value={ { operations, setOperations, roomItems, setRoomItems, balance, setBalance } }>
       { children }
     </MyContext.Provider>
   );

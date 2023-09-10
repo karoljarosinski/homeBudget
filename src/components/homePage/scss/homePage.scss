@@ -51,6 +51,7 @@
     }
 
     .list_of_movements {
+      animation: movementsAnimation 2s;
       width: 100%;
       @media (min-width: 740px) {
         width: 50%;
@@ -115,6 +116,7 @@
       padding: 0.5rem;
     }
     .edit_form {
+     animation: movementsAnimation 2s;
       h1 {
         width: 100%;
       }
@@ -159,4 +161,8 @@
       }
     }
   }
+}
+@keyframes movementsAnimation {
+  from{opacity: 0}
+  to{opacity:1}
 }

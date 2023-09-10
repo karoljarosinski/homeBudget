@@ -17,6 +17,26 @@ const HomePage = () => {
   const [objectToEdit, setObjectToEdit] = useState();
   const contextData = useContext(MyContext);
 
+  const updateBalance = async (amount, transactionType) => {
+    let actualBalance = contextData.balance[0].balance;
+    actualBalance = transactionType === 'expense' ? actualBalance-= amount : actualBalance += amount;
+    try {
+      const balanceRef = db.collection('balance').doc(contextData.balance[0].id);
+      const balanceObject = await balanceRef.get();
+      if (balanceObject.exists) {
+        const balanceData = balanceObject.data();
+        balanceData.balance = actualBalance;
+        await balanceRef.update(balanceData);
+        contextData.setBalance([{
+          ...balanceData,
+          id: balanceObject.id
+        }])
+      }
+    } catch (error) {
+      console.error('Błąd odczytu danych', error);
+    }
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const newOperation = {
@@ -30,7 +50,8 @@ const HomePage = () => {
       const data = await collectionRef.add(newOperation);
       contextData.setOperations(prevState => [...prevState, { ...newOperation, id: data.id }])
       setTitle('');
-      setAmount(0);
+      setAmount('');
+      await updateBalance(amount, transactionType);
     } catch (error) {
       console.error('Blad dodawania obiektu: ', error)
     }
@@ -39,8 +60,13 @@ const HomePage = () => {
   const handleRemoveElement = async (id) => {
     try {
       const collectionRef = db.collection('operations');
-      await collectionRef.doc(id).delete();
+      const deletedObjectRef = collectionRef.doc(id);
+      const deletedObjectSnapshot = await deletedObjectRef.get();
+      const deletedObjectData = deletedObjectSnapshot.data();
+      await deletedObjectRef.delete();
       contextData.setOperations(prevState => prevState.filter(el => el.id !== id));
+      const type = deletedObjectData.type === 'expense' ? 'income' : 'expense'
+      await updateBalance(deletedObjectData.price, type);
     } catch (error) {
       console.error('Błąd podczas usuwania obiektu: ', error);
     }
@@ -90,7 +116,7 @@ const HomePage = () => {
             Data: { new Date().getDate() }/{ new Date().getMonth() + 1 }/{ new Date().getFullYear() }
           </p>
           <p><strong>BALANCE</strong></p>
-          <p>{ 5000 }</p>
+          <p>{ contextData.balance !== undefined && contextData.balance[0].balance }</p>
         </div>
         <div className='home-picture'>
           <img src={ require('./images/homeImage.png') } alt="homePicture"/>
