@@ -4,7 +4,7 @@ import { db } from "../../firebase";
 export const MyContext = createContext(null);
 
 const MyContextProvider = ({ children }) => {
-  const [operations, setOperations] = useState([]);
+  const [operations, setOperations] = useState();
   const [roomItems, setRoomItems] = useState([]);
   const [balance, setBalance] = useState();
 

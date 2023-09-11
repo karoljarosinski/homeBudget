@@ -110,6 +110,8 @@ const HomePage = () => {
     }
   }
 
+  console.log(contextData.operations);
+
   return (
     <div className='homePage'>
       <div className='upperMainPage'>
@@ -145,7 +147,7 @@ const HomePage = () => {
           <div className='list_of_movements'>
             <h1>LIST OF MOVEMENTS</h1>
             <ul>
-              { contextData.operations.map((operation) => (
+              { contextData.operations !== undefined && contextData.operations.map((operation) => (
                 <li key={ operation.id } style={ { borderColor: operation.type === 'expense' ? 'red' : 'blue' } }>
                   <p className='operation_title'>{ operation.title }</p>
                   <p className='operation_date'>
@@ -161,8 +163,8 @@ const HomePage = () => {
                 </li>
               )) }
             </ul>
-            { !contextData.operations.length && <div className='spinner'><CircularIndeterminate/></div> }
-            <PieArcLabel />
+            { contextData.operations === undefined && <div className='spinner'><CircularIndeterminate/></div> }
+            {(contextData.operations !== undefined && contextData.operations.length !== 0) && <PieArcLabel/> }
           </div>
         }
         { editElement && <div className='edit_form'>
